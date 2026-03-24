@@ -3,6 +3,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { ArrowRight, Play } from "lucide-react";
 import LandingHero from "./_components/LandingHero";
+import ChatInputBox2 from "./_components/ChatInputBox2";
 import TopNav from "./_components/TopNav";
 import OpenCosmoTerminal from "./_components/OpenCosmoTerminal";
 import { useUser } from "@clerk/nextjs";
@@ -25,17 +26,10 @@ export default function Home() {
 
   if (user) {
     return (
-      <div className="overflow-x-hidden min-h-screen bg-gradient-to-br from-[#faf8f3] via-[#f5f2ed] to-[#ece8e1] dark:from-[#001121] dark:via-[#001121] dark:to-[#001121]">
+      <div className="overflow-x-hidden">
         <TopNav />
-        <div className="pt-24 px-6 flex items-center justify-center min-h-[calc(100vh-6rem)]">
-          <div className="max-w-2xl w-full rounded-2xl border border-[#d9d1c7] dark:border-[#1f2834] bg-white/80 dark:bg-[#0b1827]/80 backdrop-blur px-8 py-12 text-center shadow-lg">
-            <p className="text-sm uppercase tracking-[0.2em] text-[#8a7f74] dark:text-[#9db0c5] mb-4">
-              Temporary Notice
-            </p>
-            <h1 className="text-3xl md:text-4xl font-light text-[#4a4540] dark:text-[#ececf1] leading-tight">
-              website is currently undergoing maintenance, please check back soon
-            </h1>
-          </div>
+        <div className="pt-16">
+          <ChatInputBox2 />
         </div>
       </div>
     );

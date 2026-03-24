@@ -205,7 +205,7 @@ function ChatInputBox() {
                             {user ? <Button size={'icon'} className={'bg-blue-500'}
                                 onClick={handleSend} disabled={loading}>{loading ? <Loader2 className='animate-spin' /> : <Send />}</Button>
                                 :
-                                <SignInButton mode='modal'>
+                                <SignInButton mode='modal' forceRedirectUrl='/' fallbackRedirectUrl='/'>
                                     <Button size={'icon'} className={'bg-blue-500'}
                                         disabled={loading}>{loading ? <Loader2 className='animate-spin' /> : <Send />}</Button>
                                 </SignInButton>

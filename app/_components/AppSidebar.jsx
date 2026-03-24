@@ -111,7 +111,7 @@ export function AppSidebar() {
                             <Button className='mt-7 w-full bg-[var(--brand-red)] hover:bg-[var(--brand-red-hover)] text-white' size="lg">+ New Chat</Button>
                         </Link> :
 
-                        <SignInButton mode="modal">
+                        <SignInButton mode="modal" forceRedirectUrl="/" fallbackRedirectUrl="/">
                             <Button className='mt-7 w-full bg-[var(--brand-red)] hover:bg-[var(--brand-red-hover)] text-white' size="lg">+ New Chat</Button>
                         </SignInButton>}
                 </div>
@@ -139,7 +139,7 @@ export function AppSidebar() {
             </SidebarContent>
             <SidebarFooter >
                 <div className="p-3 mb-10">
-                    {!user ? <SignInButton mode="modal" >
+                    {!user ? <SignInButton mode="modal" forceRedirectUrl="/" fallbackRedirectUrl="/" >
                         <Button className={'w-full bg-[var(--brand-red)] hover:bg-[var(--brand-red-hover)] text-white'} size={'lg'}>Sign In/Sign Up</Button>
                     </SignInButton>
                         :

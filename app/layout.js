@@ -22,8 +22,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider
-      signInFallbackRedirectUrl="/dashboard"
-      signUpFallbackRedirectUrl="/dashboard"
+      signInForceRedirectUrl="/"
+      signUpForceRedirectUrl="/"
     >
       <html lang="en" suppressHydrationWarning>
         <body

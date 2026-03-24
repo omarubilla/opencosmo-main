@@ -76,7 +76,7 @@ export default function TopNav() {
             {mounted && isNight ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
 
-          <SignInButton mode="modal">
+          <SignInButton mode="modal" forceRedirectUrl="/" fallbackRedirectUrl="/">
             <button className="px-4 py-2 rounded-full bg-[var(--brand-red)] text-white text-sm font-medium hover:bg-[var(--brand-red-hover)] transition">
               Login
             </button>
