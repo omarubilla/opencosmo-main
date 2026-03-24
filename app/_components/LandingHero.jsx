@@ -67,8 +67,8 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
         'Soon, OpenCosmo will:',
         'Automatically refine its own reasoning strategies',
         'Improve task execution across workflows',
-        'Learn from every interaction — without retraining models',
-        'Recursive self-improvement — without touching the model.'
+        'Learn from every interaction, without retraining models',
+        'Recursive self-improvement, without touching the model.'
       ]
     }
   ];
