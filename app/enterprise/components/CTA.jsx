@@ -6,7 +6,7 @@ export function CTA() {
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">Ready to take control of your AI agents?</h2>
         <p className="text-xl text-gray-300 mb-10 leading-relaxed">
-          Join enterprises and AI-native companies building with confidence. Let's discuss how <span className="text-[var(--brand-red)]">🔺</span> OpenCosmo can secure and
+          Join enterprises and AI-native companies building with confidence. Let's discuss how <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo can secure and
           scale your agent infrastructure.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -8,7 +8,7 @@ export function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div className="inline-block px-4 py-2 bg-[var(--brand-red-soft)] text-[var(--brand-red)] rounded-full text-sm font-medium">
-              <span className="text-[var(--brand-red)]">🔺</span> OpenCosmo Enterprise
+              <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo Enterprise
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-[#ececf1] leading-tight">
@@ -19,7 +19,7 @@ export function Hero() {
             </h1>
 
             <p className="text-xl text-gray-600 dark:text-[#c7c8cf] leading-relaxed">
-              Your agents execute. <span className="text-[var(--brand-red)]">🔺</span> OpenCosmo makes sure they align, coordinate, and stay under control.
+              Your agents execute. <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo makes sure they align, coordinate, and stay under control.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">

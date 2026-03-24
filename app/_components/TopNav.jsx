@@ -46,11 +46,11 @@ export default function TopNav() {
       <div className="w-full px-4 md:px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/openCosmo_logo3.png"
+            src="/opencosmo69.png"
             alt="OpenCosmo Logo"
             width={36}
             height={36}
-            className="w-9 h-9 rounded-md object-cover"
+            className="w-9 h-9 rounded-md object-contain"
           />
           <div className="leading-tight">
             <p className={`text-[18px] font-semibold transition-colors duration-200 ${brandTitleClass}`}>OpenCosmo</p>

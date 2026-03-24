@@ -9,7 +9,7 @@ export default function EnterpriseControls() {
       {/* Header */}
       <div className="px-6 py-4 border-b border-gray-100 bg-gray-50 flex items-center justify-between">
         <span className="text-sm font-semibold text-gray-700">
-          <span className="text-[var(--brand-red)]">🔺</span>OpenCosmo Control Plane
+          <span className="text-[var(--brand-red)]">⭕</span>OpenCosmo Control Plane
         </span>
         <span className="text-xs text-green-600 bg-green-100 px-3 py-1 rounded-md">
           Production Environment

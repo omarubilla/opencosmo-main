@@ -3,6 +3,9 @@ import React from 'react';
 import { ChevronDown, Zap, ArrowUp, Plus, Mic } from 'lucide-react';
 
 export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
+  const arcSectionRef = React.useRef(null);
+  const [isArcVisible, setIsArcVisible] = React.useState(false);
+
   const approachSections = [
     {
       title: 'Our take on Recursive Self-Improvement',
@@ -73,6 +76,28 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
     }
   ];
 
+  React.useEffect(() => {
+    const arcNode = arcSectionRef.current;
+    if (!arcNode) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          setIsArcVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(arcNode);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const handleDemoClick = () => {
     onDemoClick();
   };
@@ -95,7 +120,7 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
         {/* Heading */}
         <div className="text-center space-y-4 mt-16">
           <h1 className="text-5xl md:text-6xl font-light text-[#4a4540] dark:text-[#ececf1] tracking-tight">
-            <span className="text-[var(--brand-red)]">🔺</span> OpenCosmo
+            <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo
             <span className="block mt-2 font-extralight italic text-[#6b6158] dark:text-[#c7c8cf]">
               We empower business owners — elevate your existing workflow.
             </span>
@@ -182,6 +207,82 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
             </span>
           </button>
         </div>
+
+        {/* ARC section */}
+        <section
+          ref={arcSectionRef}
+          className="w-full bg-black text-white py-24 px-6 md:px-12 lg:px-24 rounded-3xl"
+        >
+          <div className="max-w-5xl mx-auto">
+            <div
+              className={`mb-12 transition-all duration-700 ease-out ${
+                isArcVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
+            >
+              <p className="text-sm text-neutral-400 tracking-widest uppercase mb-3">
+                Benchmark
+              </p>
+              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
+                Why ARC-AGI?
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-10 text-lg text-neutral-300 leading-relaxed">
+              <div
+                className={`transition-all duration-700 delay-100 ease-out ${
+                  isArcVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                }`}
+              >
+                <p className="mb-6">
+                  Most AI systems rely on patterns they&apos;ve already seen.
+                  <span className="text-white"> ARC-AGI tests something harder:</span>
+                </p>
+
+                <p className="text-white text-xl md:text-2xl font-medium mb-6">
+                  Can a system solve new problems it has never seen before?
+                </p>
+
+                <p>
+                  There&apos;s no large dataset. No memorization.
+                  Just a few examples - and the need to figure out the rule.
+                </p>
+              </div>
+
+              <div
+                className={`transition-all duration-700 delay-200 ease-out ${
+                  isArcVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                }`}
+              >
+                <p className="mb-6">
+                  This is where most models fail.
+                </p>
+
+                <p className="mb-6">
+                  <span className="text-white">OpenCosmo is built for this.</span>
+                </p>
+
+                <p className="mb-6">
+                  We don&apos;t make models bigger - we make systems smarter.
+                </p>
+
+                <p>
+                  By improving how models are used, OpenCosmo enables real reasoning,
+                  fast adaptation, and continuous improvement on entirely new tasks.
+                </p>
+              </div>
+            </div>
+
+            <div
+              className={`mt-16 border-t border-neutral-800 pt-6 transition-all duration-700 delay-300 ease-out ${
+                isArcVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
+            >
+              <p className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-red-500">
+                ARC reveals the future of AI: not bigger models - better systems.
+              </p>
+            </div>
+          </div>
+        </section>
 
         {/* Sticky headline + scrollable narrative */}
         <section className="mt-14 w-full max-w-6xl lg:h-screen lg:overflow-hidden">

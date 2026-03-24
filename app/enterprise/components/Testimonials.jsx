@@ -33,7 +33,7 @@ function renderBrandText(text) {
   return (
     <>
       {text.slice(0, index)}
-      <span className="text-[var(--brand-red)]">🔺</span> OpenCosmo
+      <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo
       {text.slice(index + brand.length)}
     </>
   );

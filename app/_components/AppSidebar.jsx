@@ -95,7 +95,7 @@ export function AppSidebar() {
                             className="flex justify-between items-center"
                         >
                             <div className="flex items-center gap-3">
-                                <Image src={'/openCosmo_logo3.png'} alt="logo" width={80} height={80}
+                                <Image src={'/opencosmo69.png'} alt="logo" width={80} height={80}
                                     className="w-[40px] h-[40px]"
                                 />
                                 <h2 className="font-bold text-xl text-[#4a4540] dark:text-[#ececf1]">OpenCosmo</h2>

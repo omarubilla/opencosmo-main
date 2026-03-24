@@ -6,7 +6,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           <div className="lg:col-span-2">
-            <h3 className="text-2xl font-bold text-white mb-4"><span className="text-[var(--brand-red)]">🔺</span> OpenCosmo</h3>
+            <h3 className="text-2xl font-bold text-white mb-4"><span className="text-[var(--brand-red)]">⭕</span> OpenCosmo</h3>
             <p className="text-gray-400 mb-6 max-w-sm">
               Cognitive Infrastructure for High-Stakes AI Execution. The command center for enterprise AI agents.
             </p>
@@ -58,7 +58,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-400 text-sm">© 2026 <span className="text-[var(--brand-red)]">🔺</span> OpenCosmo. Built in Silicon Valley.</p>
+          <p className="text-gray-400 text-sm">© 2026 <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo. Built in Silicon Valley.</p>
           <div className="flex gap-6 text-sm">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>

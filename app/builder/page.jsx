@@ -35,7 +35,7 @@ export default function BuilderPage() {
       <nav className="border-b border-[#d4cec3] bg-white/50 backdrop-blur mt-16">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="text-xl font-light text-[#4a4540]">
-            <span className="text-[var(--brand-red)]">🔺</span> OpenCosmo Builder
+            <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo Builder
           </Link>
           <div className="flex gap-4">
             <Link

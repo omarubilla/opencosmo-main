@@ -35,7 +35,7 @@ export function Mission() {
               make operational decisions.
             </p>
             <p className="text-2xl font-bold text-gray-900 dark:text-[#ececf1]">
-              <span className="text-[var(--brand-red)]">🔺</span> OpenCosmo ensures that as autonomy increases, control increases with it.
+               OpenCosmo ensures that as autonomy increases, control increases with it.
             </p>
             <p className="text-lg text-gray-600 dark:text-[#c7c8cf] italic">
               We are building the infrastructure layer between AI capability and enterprise reality.
@@ -54,7 +54,7 @@ export function Mission() {
             </div>
           </div>
           <div className="mt-8 text-center">
-            <p className="text-lg text-gray-700 dark:text-[#c7c8cf] font-medium"><span className="text-[var(--brand-red)]">🔺</span> OpenCosmo enables:</p>
+            <p className="text-lg text-gray-700 dark:text-[#c7c8cf] font-medium"> OpenCosmo enables:</p>
             <div className="flex flex-wrap justify-center gap-4 mt-4">
               <span className="px-6 py-3 bg-white dark:bg-[#17171b] rounded-full font-semibold text-gray-900 dark:text-[#ececf1] shadow-sm">Safer autonomy</span>
               <span className="px-6 py-3 bg-white dark:bg-[#17171b] rounded-full font-semibold text-gray-900 dark:text-[#ececf1] shadow-sm">Structured execution</span>
@@ -95,7 +95,7 @@ export function Mission() {
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-20 font-bold text-[var(--brand-red)] text-lg">2024</div>
               <div className="flex-1">
-                <p className="text-gray-700 dark:text-[#c7c8cf]"><span className="text-[var(--brand-red)]">🔺</span> OpenCosmo experimentation with LLM hallucinations</p>
+                <p className="text-gray-700 dark:text-[#c7c8cf]"><span className="text-[var(--brand-red)]">⭕</span> OpenCosmo experimentation with LLM hallucinations</p>
               </div>
             </div>
             <div className="flex gap-4">
@@ -107,7 +107,7 @@ export function Mission() {
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-20 font-bold text-[var(--brand-red)] text-lg">2026</div>
               <div className="flex-1">
-                <p className="text-gray-700 dark:text-[#c7c8cf] font-semibold"><span className="text-[var(--brand-red)]">🔺</span> OpenCosmo AEP launched for controlled agent orchestration</p>
+                <p className="text-gray-700 dark:text-[#c7c8cf] font-semibold"><span className="text-[var(--brand-red)]">⭕</span> OpenCosmo AEP launched for controlled agent orchestration</p>
               </div>
             </div>
           </div>

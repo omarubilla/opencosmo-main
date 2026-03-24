@@ -14,7 +14,7 @@ export function Solutions() {
           </div>
           <div className="order-1 lg:order-2 space-y-6">
             <div className="inline-block px-4 py-2 bg-[var(--brand-red-soft)] text-[var(--brand-red)] rounded-full text-sm font-medium">
-              Why <span className="text-[var(--brand-red)]">🔺</span> OpenCosmo Exists
+              Why <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo Exists
             </div>
             <h2 className="text-4xl font-bold text-gray-900 dark:text-[#ececf1]">Enterprise agents don't fail because of intelligence</h2>
             <p className="text-lg text-gray-600 dark:text-[#c7c8cf] leading-relaxed">They fail because of lack of orchestration and control.</p>
@@ -39,7 +39,7 @@ export function Solutions() {
             </div>
             <h2 className="text-4xl font-bold text-gray-900 dark:text-[#ececf1]">Designed for real operational environments</h2>
             <p className="text-lg text-gray-600 dark:text-[#c7c8cf] leading-relaxed">
-              Not just demos. <span className="text-[var(--brand-red)]">🔺</span> OpenCosmo is built for teams deploying agents in production.
+              Not just demos. <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo is built for teams deploying agents in production.
             </p>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
