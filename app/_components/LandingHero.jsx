@@ -1,10 +1,119 @@
 "use client";
 import React from 'react';
-import { ChevronDown, Zap, ArrowUp, Plus, Mic } from 'lucide-react';
+import { ChevronDown, Zap, Loader2, Globe, ShieldCheck } from 'lucide-react';
 
 export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
   const arcSectionRef = React.useRef(null);
   const [isArcVisible, setIsArcVisible] = React.useState(false);
+  const launchDate = React.useMemo(() => new Date(2026, 2, 26, 22, 0, 0), []);
+  const [websiteUrl, setWebsiteUrl] = React.useState('');
+  const [isScanning, setIsScanning] = React.useState(false);
+  const [scanError, setScanError] = React.useState('');
+  const [scanResult, setScanResult] = React.useState(null);
+  const [timeRemaining, setTimeRemaining] = React.useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  const isFeatureLive = React.useMemo(() => Date.now() >= launchDate.getTime(), [launchDate, timeRemaining]);
+
+  const normalizeUrl = (rawValue) => {
+    const trimmed = rawValue.trim();
+    if (!trimmed) return '';
+
+    const withProtocol = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+    return new URL(withProtocol).toString();
+  };
+
+  const categorizeBusiness = (host) => {
+    const lowerHost = host.toLowerCase();
+
+    if (/shop|store|boutique|retail|market/.test(lowerHost)) return 'E-commerce';
+    if (/law|legal|attorney/.test(lowerHost)) return 'Legal Services';
+    if (/clinic|health|medical|dental/.test(lowerHost)) return 'Healthcare';
+    if (/agency|studio|design|marketing/.test(lowerHost)) return 'Agency / Services';
+    if (/edu|academy|course|learn/.test(lowerHost)) return 'Education';
+    return 'Professional Services';
+  };
+
+  const buildAiAssessment = (normalizedUrl) => {
+    const host = new URL(normalizedUrl).hostname.replace(/^www\./, '');
+    const businessType = categorizeBusiness(host);
+
+    return {
+      businessType,
+      scanSummary: `We scanned ${host} and mapped AI opportunities by downside risk and knowledge abstraction, then prioritized safe implementation paths first.`,
+      recommendations: [
+        {
+          title: 'Simple Selections and Recommendations',
+          aiType: 'Automation Assistant',
+          safetyProfile: 'Low downside / low abstraction',
+          whatItDoes: 'Handles repetitive triage tasks: FAQs, lead qualification, ticket routing, and basic document drafting.',
+          estimatedSavings: '$2,500 - $6,000 / month',
+          swot: {
+            strengths: 'Fast deployment and measurable productivity lift in 2-4 weeks.',
+            weaknesses: 'Limited strategic depth; needs clear guardrails and templates.',
+            opportunities: 'Reduce manual workload by 15-30% and improve response times.',
+            threats: 'Bad prompts or stale knowledge can degrade output quality.'
+          }
+        },
+        {
+          title: 'Important Choices',
+          aiType: 'Decision Support Copilot',
+          safetyProfile: 'Medium downside / medium abstraction',
+          whatItDoes: 'Supports pricing, resource planning, campaign optimization, and operations decisions with explainable recommendations.',
+          estimatedSavings: '$5,000 - $14,000 / month',
+          swot: {
+            strengths: 'Improves consistency in business decisions and surfaces hidden patterns.',
+            weaknesses: 'Requires good internal data hygiene to perform reliably.',
+            opportunities: 'Increase margin and planning quality with weekly AI-assisted reviews.',
+            threats: 'Over-reliance without human review can introduce avoidable errors.'
+          }
+        },
+        {
+          title: 'Informed Guidance',
+          aiType: 'Strategic Advisory Agent',
+          safetyProfile: 'High downside / high context sensitivity',
+          whatItDoes: 'Provides scenario planning, risk forecasting, and rollout strategy guidance with explicit human approvals.',
+          estimatedSavings: '$8,000 - $25,000 / month',
+          swot: {
+            strengths: 'High leverage for leadership, planning, and change management.',
+            weaknesses: 'Needs governance, review workflows, and domain owner oversight.',
+            opportunities: 'Enable safer expansion into new markets and service lines.',
+            threats: 'Wrong assumptions can cascade if governance is weak.'
+          }
+        }
+      ]
+    };
+  };
+
+  const handleWebsiteScan = async (event) => {
+    event.preventDefault();
+    setScanError('');
+    setScanResult(null);
+
+    if (!isFeatureLive) {
+      setScanError('Website scanning is temporarily unavailable. Launching March 26 at 10:00 PM.');
+      return;
+    }
+
+    let normalizedUrl = '';
+    try {
+      normalizedUrl = normalizeUrl(websiteUrl);
+      if (!normalizedUrl) {
+        setScanError('Please enter your website URL first.');
+        return;
+      }
+    } catch {
+      setScanError('Please enter a valid website URL (example: yoursite.com).');
+      return;
+    }
+
+    setIsScanning(true);
+
+    // Simulate website scanning for now. Replace with a real API call when backend is ready.
+    await new Promise((resolve) => setTimeout(resolve, 2200));
+
+    setScanResult(buildAiAssessment(normalizedUrl));
+    setIsScanning(false);
+  };
 
   const approachSections = [
     {
@@ -98,6 +207,32 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
     };
   }, []);
 
+  React.useEffect(() => {
+    const updateCountdown = () => {
+      const diff = launchDate.getTime() - Date.now();
+
+      if (diff <= 0) {
+        setTimeRemaining({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      setTimeRemaining({ days, hours, minutes, seconds });
+    };
+
+    updateCountdown();
+    const timerId = setInterval(updateCountdown, 1000);
+
+    return () => {
+      clearInterval(timerId);
+    };
+  }, [launchDate]);
+
   const handleDemoClick = () => {
     onDemoClick();
   };
@@ -120,7 +255,7 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
         {/* Heading */}
         <div className="text-center space-y-4 mt-16">
           <h1 className="text-5xl md:text-6xl font-light text-[#4a4540] dark:text-[#ececf1] tracking-tight">
-            <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo
+            OpenCosmo
             <span className="block mt-2 font-extralight italic text-[#6b6158] dark:text-[#c7c8cf]">
               We empower business owners — elevate your existing workflow.
             </span>
@@ -130,47 +265,135 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
           </p>
         </div>
 
-        {/* Prompt Composer */}
+        {/* Legacy Prompt Composer retained for reference only. */}
+        {/*
         <div className="mt-8 w-full max-w-4xl rounded-[28px] border border-white/10 bg-[#202124] text-white shadow-2xl">
           <div className="px-6 pt-5 pb-4">
             <textarea
               placeholder="Ask Cosmo to create a prototype..."
               className="h-12 w-full resize-none bg-transparent text-lg text-white placeholder:text-white/60 focus:outline-none"
             />
-            <div className="mt-3 flex items-center justify-between">
-              <button
-                type="button"
-                className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition hover:bg-white/10 hover:text-white"
-                aria-label="Attach"
-              >
-                <Plus className="h-5 w-5" />
-              </button>
-
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  className="text-lg font-medium text-white/90 transition hover:text-white"
-                >
-                  Plan
-                </button>
-                <button
-                  type="button"
-                  className="flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition hover:bg-white/10 hover:text-white"
-                  aria-label="Voice"
-                >
-                  <Mic className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/30 text-white transition hover:bg-white/40"
-                  aria-label="Send"
-                >
-                  <ArrowUp className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
           </div>
         </div>
+        */}
+
+        {/* Website AI Fit Scanner */}
+        <section className="mt-8 w-full max-w-4xl rounded-[28px] border border-[#d7d2ca] bg-[#f8f5ef] p-6 text-[#2e2a25] shadow-[0_18px_50px_rgba(51,39,24,0.12)] dark:border-[#343842] dark:bg-[#17191f] dark:text-[#ececf1]">
+          <div className="mb-4">
+            <p className="text-xs uppercase tracking-[0.16em] text-[#8b7d70] dark:text-[#9aa0ad]">
+              Safe AI Rollout Planner
+            </p>
+            <h3 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight">
+              Enter your website URL to get your AI strategy map
+            </h3>
+            <p className="mt-2 text-sm md:text-base text-[#655b51] dark:text-[#bcc1cc]">
+              We classify your business and recommend the safest first AI initiatives, with SWOT analysis and estimated savings.
+            </p>
+          </div>
+
+          {!isFeatureLive ? (
+            <div className="mb-4 rounded-2xl border border-[#cfbfa8] bg-[#fdf4e7] p-4 dark:border-[#5b4a2f] dark:bg-[#221c14]">
+              <p className="text-xs uppercase tracking-[0.14em] text-[#8a5a1c] dark:text-[#d9b982]">Coming Soon</p>
+              <p className="mt-1 text-sm md:text-base font-medium text-[#5e3f17] dark:text-[#f3d6a7]">
+                Scanner is unavailable until March 26 at 10:00 PM.
+              </p>
+              <p className="mt-2 text-lg md:text-xl font-semibold tracking-wide text-[#3f2a0d] dark:text-[#ffe5bf]">
+                {String(timeRemaining.days).padStart(2, '0')}d : {String(timeRemaining.hours).padStart(2, '0')}h : {String(timeRemaining.minutes).padStart(2, '0')}m : {String(timeRemaining.seconds).padStart(2, '0')}s
+              </p>
+            </div>
+          ) : null}
+
+          <form onSubmit={handleWebsiteScan} className="space-y-3">
+            <label htmlFor="website-url" className="text-sm font-medium">
+              Business website URL
+            </label>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <div className="relative flex-1">
+                <Globe className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8e8478] dark:text-[#9aa0ad]" />
+                <input
+                  id="website-url"
+                  type="text"
+                  value={websiteUrl}
+                  onChange={(event) => setWebsiteUrl(event.target.value)}
+                  placeholder="example.com"
+                  disabled={!isFeatureLive || isScanning}
+                  className="h-11 w-full rounded-xl border border-[#cdc5bb] bg-white pl-10 pr-4 text-[15px] outline-none transition focus:border-[#b8934f] dark:border-[#3a3f4c] dark:bg-[#12141a]"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={isScanning || !isFeatureLive}
+                className={`h-11 min-w-[168px] rounded-xl px-5 text-sm font-semibold transition ${
+                  !isFeatureLive
+                    ? 'bg-[#d7d7d7] text-[#6f6f6f] cursor-not-allowed dark:bg-[#3a3d46] dark:text-[#9aa0ad]'
+                    : 'bg-[#2f2a24] text-white hover:bg-[#1f1b17] dark:bg-[#e8eaef] dark:text-[#121319] dark:hover:bg-white'
+                } ${isScanning ? 'opacity-80' : ''}`}
+              >
+                {isScanning ? (
+                  <span className="inline-flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Scanning...
+                  </span>
+                ) : !isFeatureLive ? (
+                  <span className="inline-flex items-center gap-2">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#9ea3ad]" aria-hidden="true" />
+                    Connected
+                  </span>
+                ) : (
+                  'Scan my website'
+                )}
+              </button>
+            </div>
+            {scanError ? (
+              <p className="text-sm text-[#d05045] dark:text-[#ff8c80]">{scanError}</p>
+            ) : null}
+          </form>
+
+          {isScanning ? (
+            <div className="mt-5 rounded-2xl border border-dashed border-[#c7bfb4] bg-[#f2ede4] p-4 dark:border-[#3d4352] dark:bg-[#111319]">
+              <p className="inline-flex items-center gap-2 text-sm md:text-base text-[#5d5348] dark:text-[#bcc1cc]">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Scanning website structure, services, and potential AI opportunities...
+              </p>
+            </div>
+          ) : null}
+
+          {scanResult ? (
+            <div className="mt-6 space-y-4">
+              <div className="rounded-2xl border border-[#d4cabb] bg-white p-4 dark:border-[#333947] dark:bg-[#10131a]">
+                <p className="text-xs uppercase tracking-[0.14em] text-[#8c7f72] dark:text-[#9aa0ad]">Business category</p>
+                <p className="mt-1 text-lg font-semibold">{scanResult.businessType}</p>
+                <p className="mt-2 text-sm text-[#5e554c] dark:text-[#bcc1cc]">{scanResult.scanSummary}</p>
+              </div>
+
+              <div className="space-y-3">
+                {scanResult.recommendations.map((item) => (
+                  <article
+                    key={item.title}
+                    className="rounded-2xl border border-[#dacfc1] bg-[#fffdfa] p-4 dark:border-[#3a404d] dark:bg-[#12151d]"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <h4 className="text-base md:text-lg font-semibold tracking-tight">{item.title}</h4>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[#f0e6d6] px-3 py-1 text-xs font-medium text-[#5b4b34] dark:bg-[#2a3242] dark:text-[#c8d6f0]">
+                        <ShieldCheck className="h-3.5 w-3.5" />
+                        {item.safetyProfile}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-sm font-medium text-[#52483d] dark:text-[#d5d8df]">{item.aiType}</p>
+                    <p className="mt-2 text-sm text-[#5f554a] dark:text-[#bcc1cc]">{item.whatItDoes}</p>
+                    <p className="mt-3 text-sm font-semibold text-[#3c342b] dark:text-white">Estimated savings: {item.estimatedSavings}</p>
+                    <div className="mt-3 grid gap-2 text-sm md:grid-cols-2">
+                      <p><span className="font-semibold">S:</span> {item.swot.strengths}</p>
+                      <p><span className="font-semibold">W:</span> {item.swot.weaknesses}</p>
+                      <p><span className="font-semibold">O:</span> {item.swot.opportunities}</p>
+                      <p><span className="font-semibold">T:</span> {item.swot.threats}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </section>
 
         {/* Demo Buttons */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
