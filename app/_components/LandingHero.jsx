@@ -5,7 +5,7 @@ import { ChevronDown, Zap, Loader2, Globe, ShieldCheck } from 'lucide-react';
 export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
   const arcSectionRef = React.useRef(null);
   const [isArcVisible, setIsArcVisible] = React.useState(false);
-  const launchDate = React.useMemo(() => new Date(2026, 2, 26, 22, 0, 0), []);
+  const launchDate = React.useMemo(() => new Date(2026, 2, 30, 22, 0, 0), []);
   const [websiteUrl, setWebsiteUrl] = React.useState('');
   const [isScanning, setIsScanning] = React.useState(false);
   const [scanError, setScanError] = React.useState('');
@@ -90,7 +90,7 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
     setScanResult(null);
 
     if (!isFeatureLive) {
-      setScanError('Website scanning is temporarily unavailable. Launching March 26 at 10:00 PM.');
+      setScanError('Website scanning is temporarily unavailable. Launching March 30 at 10:00 PM.');
       return;
     }
 
@@ -295,7 +295,7 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
             <div className="mb-4 rounded-2xl border border-[#cfbfa8] bg-[#fdf4e7] p-4 dark:border-[#5b4a2f] dark:bg-[#221c14]">
               <p className="text-xs uppercase tracking-[0.14em] text-[#8a5a1c] dark:text-[#d9b982]">Coming Soon</p>
               <p className="mt-1 text-sm md:text-base font-medium text-[#5e3f17] dark:text-[#f3d6a7]">
-                Scanner is unavailable until March 26 at 10:00 PM.
+                Scanner is unavailable until March 30 at 10:00 PM.
               </p>
               <p className="mt-2 text-lg md:text-xl font-semibold tracking-wide text-[#3f2a0d] dark:text-[#ffe5bf]">
                 {String(timeRemaining.days).padStart(2, '0')}d : {String(timeRemaining.hours).padStart(2, '0')}h : {String(timeRemaining.minutes).padStart(2, '0')}m : {String(timeRemaining.seconds).padStart(2, '0')}s
