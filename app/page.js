@@ -55,7 +55,7 @@ export default function Home() {
           <div className="w-full max-w-2xl drop-shadow-2xl rounded-lg overflow-hidden">
             <div className="relative w-full">
               <Image
-                src="/opencosmo_aep.png"
+                src="/opencosmo_aep.png?v=20260327"
                 alt="OpenCosmo AEP"
                 width={800}
                 height={600}

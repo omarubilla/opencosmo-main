@@ -500,7 +500,7 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
                 isArcVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-              <p className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-red-500">
+              <p className="inline-flex items-center rounded-full bg-white px-10 py-4 text-base md:text-xl font-semibold text-red-500 whitespace-nowrap">
                 ARC reveals the future of AI: not bigger models - better systems.
               </p>
             </div>

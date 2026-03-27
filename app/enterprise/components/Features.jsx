@@ -40,7 +40,7 @@ export function Features() {
         <div className="text-center mb-16">
           <div className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden shadow-md border border-gray-200 dark:border-[#2b2f36] bg-white dark:bg-[#17171b] mb-8">
             <img
-              src="/opencosmo_aep.png"
+              src="/opencosmo_aep.png?v=20260327"
               alt="OpenCosmo AEP"
               className="w-full h-auto"
             />
