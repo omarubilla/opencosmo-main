@@ -96,13 +96,17 @@ function Provider({ children, ...props }) {
                         showBranches,
                         setShowBranches
                     }}>
-                        <SidebarProvider>
-                            <AppSidebar />
-
-
-                            <div className='flex-1 min-w-0'>
-                                <AppHeader />{children}</div>
-                        </SidebarProvider>
+                        {user ? (
+                            <SidebarProvider>
+                                <AppSidebar />
+                                <div className='flex-1 min-w-0'>
+                                    <AppHeader />
+                                    {children}
+                                </div>
+                            </SidebarProvider>
+                        ) : (
+                            <>{children}</>
+                        )}
                     </AiSelectedModelContext.Provider>
                 </UserDetailContext.Provider>
             </NextThemesProvider>

@@ -60,6 +60,7 @@ export default function TopNav() {
 
         <nav className={`hidden md:flex items-center gap-6 text-sm transition-colors duration-200 ${navTextClass}`}>
           <Link href="/" className={`transition ${navHoverClass}`}>Home</Link>
+          <Link href="/SMBs" className={`transition ${navHoverClass}`}>SMBs</Link>
           <Link href="/enterprise" className={`transition ${navHoverClass}`}>Enterprise</Link>
           <Link href="/developers" className={`transition ${navHoverClass}`}>Developers</Link>
           {/* <a href="#" className={`transition ${navHoverClass}`}>About</a> */}

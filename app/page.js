@@ -150,8 +150,8 @@ export default function Home() {
               <div>
                 <h4 className="font-semibold text-sm mb-3">Legal</h4>
                 <ul className="text-sm font-light space-y-1">
-                  <li><a href="#" className="hover:text-white transition">Privacy</a></li>
-                  <li><a href="#" className="hover:text-white transition">Terms</a></li>
+                  <li><a href="/privacy" className="hover:text-white transition">Privacy</a></li>
+                  <li><a href="/terms" className="hover:text-white transition">Terms</a></li>
                 </ul>
               </div>
             </div>

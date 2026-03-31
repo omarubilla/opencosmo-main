@@ -58,10 +58,10 @@ export function Footer() {
         </div>
 
         <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-400 text-sm">© 2026 <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo. Built in Silicon Valley.</p>
+          <p className="text-gray-400 text-sm">© 2026 OpenCosmo. Built in Silicon Valley.</p>
           <div className="flex gap-6 text-sm">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
             <a href="#" className="hover:text-white transition-colors">Security</a>
           </div>
         </div>
