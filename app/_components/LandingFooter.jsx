@@ -7,6 +7,7 @@ export default function LandingFooter() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
             <h3 className="font-bold text-xl mb-2">OpenCosmo</h3>
+            <p className="text-xs font-light">Agent Execution Protocol</p>
             <Image
               src="/nvidia_inception_logo.png"
               alt="NVIDIA Inception"
@@ -14,7 +15,6 @@ export default function LandingFooter() {
               height={42}
               className="mb-2 h-auto w-[150px] object-contain"
             />
-            <p className="text-xs font-light">Agent Execution Protocol</p>
           </div>
           <div>
             <h4 className="font-semibold text-sm mb-3">Product</h4>

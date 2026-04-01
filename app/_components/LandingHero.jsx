@@ -277,20 +277,25 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
               className="mx-auto h-auto w-[160px] md:w-[180px]"
               priority
             />
-            <span className="block mt-2 font-extralight italic text-[#6b6158] dark:text-[#c7c8cf]">
-              We empower{" "}
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                  key={rotatingAudiences[audienceIndex]}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="inline whitespace-nowrap"
-                >
-                  {rotatingAudiences[audienceIndex]}
-                </motion.span>
-              </AnimatePresence>
+            <span className="mx-auto mt-2 inline-block text-left font-extralight italic text-[#6b6158] dark:text-[#c7c8cf]">
+              <span className="inline-flex items-baseline gap-2">
+                <span>We empower</span>
+                <span className="relative inline-block min-w-[12ch] text-left align-baseline">
+                  <span className="invisible whitespace-nowrap">business owners</span>
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.span
+                      key={rotatingAudiences[audienceIndex]}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute left-0 top-0 whitespace-nowrap"
+                    >
+                      {rotatingAudiences[audienceIndex]}
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
+              </span>
               <span className="block mt-2">elevate your existing workflow</span>
             </span>
           </h1>
