@@ -6,7 +6,7 @@ import { Stats } from "./components/Stats";
 import { Mission } from "./components/Mission";
 import { Testimonials } from "./components/Testimonials";
 import { CTA } from "./components/CTA";
-import { Footer } from "./components/Footer";
+import LandingFooter from "../_components/LandingFooter";
 
 export default function EnterprisePage() {
   return (
@@ -21,7 +21,7 @@ export default function EnterprisePage() {
         {/* <Testimonials /> */}
         <CTA />
       </main>
-      <Footer />
+      <LandingFooter />
     </div>
   );
 }

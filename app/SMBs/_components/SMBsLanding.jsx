@@ -4,6 +4,16 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "@/config/FirebaseConfig";
+import {
   UserRound,
   PhoneCall,
   Phone,
@@ -102,7 +112,44 @@ function SystemsEditorialArt({ accent, secondary, className = "" }) {
 
 export default function SMBsLanding() {
   const [activeVerticalKey, setActiveVerticalKey] = useState("funeral");
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+  const [waitlistEmail, setWaitlistEmail] = useState("");
+  const [waitlistWebsite, setWaitlistWebsite] = useState("");
+  const [waitlistLoading, setWaitlistLoading] = useState(false);
+  const [waitlistError, setWaitlistError] = useState("");
+  const [waitlistSuccess, setWaitlistSuccess] = useState("");
   const activeVertical = useMemo(() => verticalConfig[activeVerticalKey], [activeVerticalKey]);
+
+  const handleWaitlistSubmit = async (event) => {
+    event.preventDefault();
+    setWaitlistError("");
+    setWaitlistSuccess("");
+
+    if (!waitlistEmail.trim()) {
+      setWaitlistError("Email is required.");
+      return;
+    }
+
+    setWaitlistLoading(true);
+
+    try {
+      await addDoc(collection(db, "waitlist"), {
+        email: waitlistEmail.trim(),
+        website: waitlistWebsite.trim(),
+        source: "smb-cta",
+        submittedAt: serverTimestamp(),
+      });
+
+      setWaitlistSuccess("Conrats, you're on the waitlist!");
+      setWaitlistEmail("");
+      setWaitlistWebsite("");
+    } catch (error) {
+      console.error("Waitlist submission failed", error);
+      setWaitlistError("Could not submit right now. Please try again.");
+    } finally {
+      setWaitlistLoading(false);
+    }
+  };
 
   return (
     <main className="relative overflow-hidden" style={{ backgroundColor: omni.paper, color: omni.ink }}>
@@ -193,7 +240,7 @@ export default function SMBsLanding() {
           </div>
         </section>
 
-        <motion.section {...fadeUp} className="mt-14 rounded-[30px] border-2 border-[#1f1f1f]/80 p-6 md:p-8" style={{ backgroundColor: omni.panel }}>
+        {/* <motion.section {...fadeUp} className="mt-14 rounded-[30px] border-2 border-[#1f1f1f]/80 p-6 md:p-8" style={{ backgroundColor: omni.panel }}>
           <div className="flex flex-wrap gap-2 border-b-2 border-[#1f1f1f]/40 pb-4">
             {verticalOrder.map((verticalKey) => {
               const item = verticalConfig[verticalKey];
@@ -254,9 +301,9 @@ export default function SMBsLanding() {
               <SystemsEditorialArt accent={activeVertical.accent} secondary={activeVertical.secondary} className="max-w-[520px]" />
             )}
           </motion.div>
-        </motion.section>
+        </motion.section> */}
 
-        <motion.section {...fadeUp} className="mt-16 rounded-[30px] border-2 border-[#1f1f1f]/80 p-6 md:p-8" style={{ backgroundColor: omni.panelSoft }}>
+        {/* <motion.section {...fadeUp} className="mt-16 rounded-[30px] border-2 border-[#1f1f1f]/80 p-6 md:p-8" style={{ backgroundColor: omni.panelSoft }}>
           <div className="mb-7 flex items-center justify-between gap-4">
             <h3 className="text-3xl font-semibold tracking-tight md:text-4xl">Talk to your AI agent right now</h3>
             <span className="rounded-xl border-2 border-[#171717] px-4 py-1 text-xs uppercase tracking-[0.16em]" style={{ color: omni.burnt }}>
@@ -326,7 +373,7 @@ export default function SMBsLanding() {
               </div>
             </div>
           </div>
-        </motion.section>
+        </motion.section> */}
 
         <motion.section {...fadeUp} className="mt-16 rounded-[30px] border-2 border-[#1f1f1f]/80 p-6 md:p-8" style={{ backgroundColor: omni.panel }}>
           <h3 className="text-3xl font-semibold tracking-tight md:text-4xl">How it works</h3>
@@ -370,7 +417,7 @@ export default function SMBsLanding() {
           </h3>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {[
-              { value: "2 min", label: "to deploy" },
+              { value: "5 min", label: "to deploy" },
               { value: "24/7", label: "availability" },
               { value: "10x", label: "engagement" },
             ].map((stat) => (
@@ -385,8 +432,9 @@ export default function SMBsLanding() {
         <motion.section {...fadeUp} className="mt-16 rounded-[30px] border-2 border-[#1f1f1f]/85 p-8 text-center md:p-12" style={{ backgroundColor: omni.panel }}>
           <h3 className="text-4xl font-semibold tracking-tight md:text-6xl">Stop being a website. Become a presence.</h3>
           <p className="mx-auto mt-4 max-w-3xl text-lg" style={{ color: omni.slate }}>
-            Build a voice and avatar layer that represents your expertise with continuity, empathy, and speed.
+            Build a voice and avatar layer that represents your expertise — and executes real workflows like RFQs, client intake, and vendor coordination with continuity, empathy, and speed.
           </p>
+          {/*
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <button className="rounded-xl border-2 border-[#171717] bg-[#171717] px-8 py-3 text-sm font-semibold text-white transition hover:translate-y-[-1px]">
               Start Free
@@ -394,6 +442,67 @@ export default function SMBsLanding() {
             <button className="rounded-xl border-2 border-[#171717] px-8 py-3 text-sm font-semibold transition hover:translate-y-[-1px]" style={{ backgroundColor: omni.paper }}>
               Book Demo
             </button>
+          </div>
+          */}
+
+          <div className="mt-8 flex items-center justify-center">
+            <Dialog open={waitlistOpen} onOpenChange={setWaitlistOpen}>
+              <DialogTrigger asChild>
+                <button className="rounded-xl border-2 border-[#171717] bg-[#171717] px-8 py-3 text-sm font-semibold text-white transition hover:translate-y-[-1px]">
+                  Waitlist
+                </button>
+              </DialogTrigger>
+              <DialogContent className="border-2 border-[#1f1f1f] bg-[#f4efe6] text-[#171717] sm:max-w-[560px]">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl font-semibold tracking-tight">Join the Waitlist</DialogTitle>
+                  <DialogDescription className="text-sm text-[#5f6882]">
+                    Leave your email and business website. We’ll reach out when your vertical is ready.
+                  </DialogDescription>
+                </DialogHeader>
+
+                <form onSubmit={handleWaitlistSubmit} className="space-y-4">
+                  <div>
+                    <label className="mb-2 block text-sm font-medium" htmlFor="waitlist-email">Email</label>
+                    <input
+                      id="waitlist-email"
+                      type="email"
+                      value={waitlistEmail}
+                      onChange={(event) => setWaitlistEmail(event.target.value)}
+                      placeholder="you@company.com"
+                      className="w-full rounded-xl border-2 border-[#1f1f1f]/35 bg-white px-4 py-3 text-sm outline-none"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-sm font-medium" htmlFor="waitlist-website">Business Website</label>
+                    <input
+                      id="waitlist-website"
+                      type="url"
+                      value={waitlistWebsite}
+                      onChange={(event) => setWaitlistWebsite(event.target.value)}
+                      placeholder="https://yourbusiness.com"
+                      className="w-full rounded-xl border-2 border-[#1f1f1f]/35 bg-white px-4 py-3 text-sm outline-none"
+                    />
+                  </div>
+
+                  {waitlistError ? <p className="text-sm text-[#b43120]">{waitlistError}</p> : null}
+                  {waitlistSuccess ? (
+                    <div className="inline-flex items-center rounded-full border border-[#4f7a43] bg-[#dcefd3] px-4 py-2 text-sm font-medium text-[#23411b]">
+                      {waitlistSuccess}
+                    </div>
+                  ) : null}
+
+                  <button
+                    type="submit"
+                    disabled={waitlistLoading}
+                    className="w-full rounded-xl border-2 border-[#171717] bg-[#171717] px-5 py-3 text-sm font-semibold text-white transition disabled:opacity-60"
+                  >
+                    {waitlistLoading ? "Submitting..." : "Join Waitlist"}
+                  </button>
+                </form>
+              </DialogContent>
+            </Dialog>
           </div>
           {/* <div className="mt-8 inline-flex items-center gap-2 text-sm" style={{ color: omni.slate }}>
             <MoveRight className="h-4 w-4" />

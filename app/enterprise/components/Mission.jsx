@@ -95,7 +95,7 @@ export function Mission() {
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-20 font-bold text-[var(--brand-red)] text-lg">2024</div>
               <div className="flex-1">
-                <p className="text-gray-700 dark:text-[#c7c8cf]"><span className="text-[var(--brand-red)]">⭕</span> OpenCosmo experimentation with LLM hallucinations</p>
+                <p className="text-gray-700 dark:text-[#c7c8cf]">OpenCosmo experimentation with LLM hallucinations</p>
               </div>
             </div>
             <div className="flex gap-4">
@@ -107,7 +107,7 @@ export function Mission() {
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-20 font-bold text-[var(--brand-red)] text-lg">2026</div>
               <div className="flex-1">
-                <p className="text-gray-700 dark:text-[#c7c8cf] font-semibold"><span className="text-[var(--brand-red)]">⭕</span> OpenCosmo AEP launched for controlled agent orchestration</p>
+                <p className="text-gray-700 dark:text-[#c7c8cf] font-semibold">OpenCosmo AEP launched for controlled agent orchestration</p>
               </div>
             </div>
           </div>

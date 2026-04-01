@@ -141,7 +141,7 @@ export default function Landing2({ onDemoClick, onEnterpriseClick }) {
             }}>
               <h3 className="text-xl font-medium text-[#4a4540] mb-3">Multi-Model Verified</h3>
               <p className="text-[#7d7268] font-light leading-relaxed">
-                Claude plans. GPT executes. <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo governs. Cross-model reasoning built into every operator.
+                Claude plans. GPT executes. OpenCosmo governs. Cross-model reasoning built into every operator.
               </p>
             </div>
 
@@ -177,7 +177,7 @@ export default function Landing2({ onDemoClick, onEnterpriseClick }) {
           background: '#f5f2ed'
         }}>
           <p className="text-center text-2xl md:text-3xl font-light text-[#4a4540] leading-relaxed">
-            <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo is not another AI chatbot.
+            OpenCosmo is not another AI chatbot.
             <span className="block mt-2 font-medium">
               It is the control plane for autonomous digital operators.
             </span>

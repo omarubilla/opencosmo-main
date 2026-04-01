@@ -1,10 +1,14 @@
 "use client";
 import React from 'react';
+import Image from 'next/image';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, Zap, Loader2, Globe, ShieldCheck } from 'lucide-react';
 
 export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
   const arcSectionRef = React.useRef(null);
   const [isArcVisible, setIsArcVisible] = React.useState(false);
+  const rotatingAudiences = React.useMemo(() => ["business owners", "startups", "developers", "enterprise"], []);
+  const [audienceIndex, setAudienceIndex] = React.useState(0);
   const launchDate = React.useMemo(() => new Date(2026, 3, 5, 22, 0, 0), []);
   const [websiteUrl, setWebsiteUrl] = React.useState('');
   const [isScanning, setIsScanning] = React.useState(false);
@@ -233,6 +237,16 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
     };
   }, [launchDate]);
 
+  React.useEffect(() => {
+    const timerId = setInterval(() => {
+      setAudienceIndex((prev) => (prev + 1) % rotatingAudiences.length);
+    }, 1800);
+
+    return () => {
+      clearInterval(timerId);
+    };
+  }, [rotatingAudiences]);
+
   const handleDemoClick = () => {
     onDemoClick();
   };
@@ -255,13 +269,33 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
         {/* Heading */}
         <div className="text-center space-y-4 mt-16">
           <h1 className="text-5xl md:text-6xl font-light text-[#4a4540] dark:text-[#ececf1] tracking-tight">
-            OpenCosmo
+            <Image
+              src="/opencosmo_logo.png"
+              alt="OpenCosmo"
+              width={320}
+              height={100}
+              className="mx-auto h-auto w-[160px] md:w-[180px]"
+              priority
+            />
             <span className="block mt-2 font-extralight italic text-[#6b6158] dark:text-[#c7c8cf]">
-              We empower business owners — elevate your existing workflow.
+              We empower{" "}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={rotatingAudiences[audienceIndex]}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="inline whitespace-nowrap"
+                >
+                  {rotatingAudiences[audienceIndex]}
+                </motion.span>
+              </AnimatePresence>
+              <span className="block mt-2">elevate your existing workflow</span>
             </span>
           </h1>
           <p className="text-lg md:text-xl text-[#7d7268] dark:text-[#c7c8cf] font-light mt-6 leading-relaxed">
-            Discover the power of no-code ai agents, crafted with elegance and precision
+            Discover the power of no-code ai agents, crafted with elegance and precision.
           </p>
         </div>
 

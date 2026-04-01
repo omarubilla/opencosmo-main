@@ -162,7 +162,7 @@ export default function LoggedInLanding() {
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h3 className="font-semibold text-lg mb-3"><span className="text-[var(--brand-red)]">⭕</span> OpenCosmo</h3>
+              <h3 className="font-semibold text-lg mb-3">OpenCosmo</h3>
               <p className="text-sm font-light">Agent Execution Protocol</p>
             </div>
             <div>
@@ -188,7 +188,7 @@ export default function LoggedInLanding() {
             </div>
           </div>
           <div className="pt-8 border-t border-[#6b6158] text-center text-sm font-light">
-            <p>&copy; 2026 <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo. All rights reserved.</p>
+            <p>&copy; 2026 OpenCosmo. All rights reserved.</p>
           </div>
         </div>
       </footer>

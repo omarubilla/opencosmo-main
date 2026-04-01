@@ -6,6 +6,7 @@ import LandingHero from "./_components/LandingHero";
 import ChatInputBox2 from "./_components/ChatInputBox2";
 import TopNav from "./_components/TopNav";
 import OpenCosmoTerminal from "./_components/OpenCosmoTerminal";
+import LandingFooter from "./_components/LandingFooter";
 import { useUser } from "@clerk/nextjs";
 
 export default function Home() {
@@ -74,7 +75,7 @@ export default function Home() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-8">
                 <div className="inline-block px-4 py-2 bg-[var(--brand-red-soft)] text-[var(--brand-red)] rounded-full text-sm font-medium">
-                  <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo Enterprise
+                  OpenCosmo Enterprise
                 </div>
 
                 <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-[#ececf1] leading-tight">
@@ -85,7 +86,7 @@ export default function Home() {
                 </h2>
 
                 <p className="text-xl text-gray-600 dark:text-[#c7c8cf] leading-relaxed">
-                  Your agents execute. <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo makes sure they align, coordinate, and stay under control.
+                  Your agents execute. OpenCosmo makes sure they align, coordinate, and stay under control.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -126,40 +127,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <footer className="w-full bg-[#4a4540] text-[#f5f2ed] px-6 py-12">
-          <div className="mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-              <div>
-                <h3 className="font-semibold text-lg mb-3"><span className="text-[var(--brand-red)]">⭕</span> OpenCosmo</h3>
-                <p className="text-sm font-light">Agent Execution Protocol</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-sm mb-3">Product</h4>
-                <ul className="text-sm font-light space-y-1">
-                  <li><a href="#" className="hover:text-white transition">Features</a></li>
-                  <li><a href="#" className="hover:text-white transition">Pricing</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold text-sm mb-3">Company</h4>
-                <ul className="text-sm font-light space-y-1">
-                  <li><a href="#" className="hover:text-white transition">About</a></li>
-                  <li><a href="#" className="hover:text-white transition">Blog</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold text-sm mb-3">Legal</h4>
-                <ul className="text-sm font-light space-y-1">
-                  <li><a href="/privacy" className="hover:text-white transition">Privacy</a></li>
-                  <li><a href="/terms" className="hover:text-white transition">Terms</a></li>
-                </ul>
-              </div>
-            </div>
-            <div className="border-t border-[#6b6158] pt-6 text-center text-sm font-light">
-              <p>&copy; 2026 <span className="text-[var(--brand-red)]">⭕</span> OpenCosmo. All rights reserved.</p>
-            </div>
-          </div>
-        </footer>
+        <LandingFooter />
         </div>
       </div>
     );

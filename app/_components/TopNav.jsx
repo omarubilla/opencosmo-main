@@ -58,16 +58,21 @@ export default function TopNav() {
           </div>
         </Link>
 
-        <nav className={`hidden md:flex items-center gap-6 text-sm transition-colors duration-200 ${navTextClass}`}>
+        <nav className={`hidden md:flex items-center gap-8 text-sm transition-colors duration-200 ${navTextClass}`}>
           <Link href="/" className={`transition ${navHoverClass}`}>Home</Link>
-          <Link href="/SMBs" className={`transition ${navHoverClass}`}>SMBs</Link>
+          <Link href="/SMBs" className={`relative transition ${navHoverClass}`}>
+            SMBs
+            <span className="pointer-events-none absolute -right-6 -top-2 rounded-full bg-[#7a1f2b] px-1.5 py-0.5 text-[9px] font-semibold uppercase leading-none tracking-[0.02em] text-white">
+              New
+            </span>
+          </Link>
           <Link href="/enterprise" className={`transition ${navHoverClass}`}>Enterprise</Link>
-          <Link href="/developers" className={`transition ${navHoverClass}`}>Developers</Link>
+          {/* <Link href="/developers" className={`transition ${navHoverClass}`}>Developers</Link> */}
           {/* <a href="#" className={`transition ${navHoverClass}`}>About</a> */}
         </nav>
 
         <div className="flex items-center gap-2">
-          <button
+          {/* <button
             type="button"
             onClick={toggleMode}
             aria-label={toggleLabel}
@@ -75,13 +80,13 @@ export default function TopNav() {
             className={`h-9 w-9 rounded-full border flex items-center justify-center transition-colors duration-200 ${toggleClass}`}
           >
             {mounted && isNight ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </button>
+          </button> */}
 
-          <SignInButton mode="modal" forceRedirectUrl="/" fallbackRedirectUrl="/">
+          {/* <SignInButton mode="modal" forceRedirectUrl="/" fallbackRedirectUrl="/">
             <button className="px-4 py-2 rounded-full bg-[var(--brand-red)] text-white text-sm font-medium hover:bg-[var(--brand-red-hover)] transition">
               Login
             </button>
-          </SignInButton>
+          </SignInButton> */}
         </div>
       </div>
     </header>

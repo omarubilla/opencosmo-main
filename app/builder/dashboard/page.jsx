@@ -54,7 +54,7 @@ export default function DashboardPage() {
         <div className="max-w-6xl mx-auto px-4 py-6 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <Zap className="w-6 h-6 text-[#c89f5b]" />
-            <h1 className="text-2xl font-light text-[#4a4540]"><span className="text-[var(--brand-red)]">⭕</span> OpenCosmo Agents</h1>
+            <h1 className="text-2xl font-light text-[#4a4540]">OpenCosmo Agents</h1>
           </div>
           <Link
             href="/builder/agent"
