@@ -302,6 +302,13 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
           <p className="text-lg md:text-xl text-[#7d7268] dark:text-[#c7c8cf] font-light mt-6 leading-relaxed">
             Discover the power of no-code ai agents, crafted with elegance and precision.
           </p>
+          <Image
+            src="/nvidia_inception_logo.png"
+            alt="NVIDIA Inception Program"
+            width={180}
+            height={42}
+            className="mx-auto mt-4 h-auto w-[160px] object-contain md:w-[180px]"
+          />
         </div>
 
         {/* Legacy Prompt Composer retained for reference only. */}
