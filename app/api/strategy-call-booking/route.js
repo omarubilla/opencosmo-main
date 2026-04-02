@@ -1,7 +1,16 @@
 import { FieldValue } from "firebase-admin/firestore";
+import {
+  writeBatch,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { NextResponse } from "next/server";
 
+import { db as clientDb } from "@/config/FirebaseConfig";
 import { getAdminDb } from "@/lib/firebaseAdmin";
+import { isFirebaseAdminConfigured } from "@/lib/firebaseAdmin";
 import { createStrategyCallCalendarEvent, isGoogleCalendarConfigured } from "@/lib/googleCalendar";
 import { buildBookingSlots } from "@/lib/strategyCallSlots";
 
@@ -84,51 +93,82 @@ export async function POST(req) {
       return NextResponse.json({ error: "That time slot is not available." }, { status: 400 });
     }
 
-    const db = getAdminDb();
-    const slotRef = db.collection("strategyCallSlotReservations").doc(slotId);
-    const bookingRef = db.collection("strategyCallBookings").doc();
+    const initialStatus = isGoogleCalendarConfigured() ? "calendar-processing" : "pending-calendar-config";
+    const bookingPayload = {
+      fullName: fullName.trim(),
+      email: email.trim(),
+      company: company?.trim() || "",
+      notes: notes?.trim() || "",
+      slotId,
+      slotDateKey,
+      slotDayLabel,
+      slotDateLabel,
+      slotTimeLabel,
+      slotStartISO,
+      slotEndISO,
+      timeZone,
+      meetingType: "enterprise-strategy-call",
+      source: "enterprise-cta",
+      status: initialStatus,
+    };
+    const slotPayload = {
+      slotId,
+      slotDateKey,
+      slotDayLabel,
+      slotDateLabel,
+      slotTimeLabel,
+      slotStartISO,
+      slotEndISO,
+      timeZone,
+      fullName: fullName.trim(),
+      email: email.trim(),
+      status: "reserved",
+    };
 
-    await db.runTransaction(async (transaction) => {
-      const existingSlot = await transaction.get(slotRef);
-      if (existingSlot.exists) {
-        throw new SlotConflictError("That slot has already been taken.");
-      }
+    let bookingId;
+    let slotRef;
+    let bookingRef;
 
-      transaction.set(slotRef, {
-        slotId,
-        slotDateKey,
-        slotDayLabel,
-        slotDateLabel,
-        slotTimeLabel,
-        slotStartISO,
-        slotEndISO,
-        timeZone,
-        bookingId: bookingRef.id,
-        fullName: fullName.trim(),
-        email: email.trim(),
-        status: "reserved",
-        reservedAt: FieldValue.serverTimestamp(),
+    if (isFirebaseAdminConfigured()) {
+      const adminDb = getAdminDb();
+      slotRef = adminDb.collection("strategyCallSlotReservations").doc(slotId);
+      bookingRef = adminDb.collection("strategyCallBookings").doc();
+      bookingId = bookingRef.id;
+
+      await adminDb.runTransaction(async (transaction) => {
+        const existingSlot = await transaction.get(slotRef);
+        if (existingSlot.exists) {
+          throw new SlotConflictError("That slot has already been taken.");
+        }
+
+        transaction.set(slotRef, {
+          ...slotPayload,
+          bookingId,
+          reservedAt: FieldValue.serverTimestamp(),
+        });
+
+        transaction.set(bookingRef, {
+          ...bookingPayload,
+          submittedAt: FieldValue.serverTimestamp(),
+        });
       });
+    } else {
+      slotRef = doc(clientDb, "strategyCallSlotReservations", slotId);
+      bookingRef = doc(collection(clientDb, "strategyCallBookings"));
+      bookingId = bookingRef.id;
 
-      transaction.set(bookingRef, {
-        fullName: fullName.trim(),
-        email: email.trim(),
-        company: company?.trim() || "",
-        notes: notes?.trim() || "",
-        slotId,
-        slotDateKey,
-        slotDayLabel,
-        slotDateLabel,
-        slotTimeLabel,
-        slotStartISO,
-        slotEndISO,
-        timeZone,
-        meetingType: "enterprise-strategy-call",
-        source: "enterprise-cta",
-        status: isGoogleCalendarConfigured() ? "calendar-processing" : "pending-calendar-config",
-        submittedAt: FieldValue.serverTimestamp(),
+      const batch = writeBatch(clientDb);
+      batch.set(slotRef, {
+        ...slotPayload,
+        bookingId,
+        reservedAt: serverTimestamp(),
       });
-    });
+      batch.set(bookingRef, {
+        ...bookingPayload,
+        submittedAt: serverTimestamp(),
+      });
+      await batch.commit();
+    }
 
     let inviteResult = null;
     let finalStatus = "pending-calendar-config";
@@ -151,33 +191,74 @@ export async function POST(req) {
       }
     }
 
-    await bookingRef.update({
-      status: finalStatus,
-      calendarEventId: inviteResult?.calendarEventId || null,
-      calendarEventLink: inviteResult?.calendarEventLink || null,
-      meetLink: inviteResult?.meetLink || null,
-      updatedAt: FieldValue.serverTimestamp(),
-    });
+    const needsFollowupUpdate =
+      finalStatus !== initialStatus || Boolean(inviteResult?.calendarEventId || inviteResult?.meetLink);
 
-    await slotRef.update({
-      status: finalStatus,
-      updatedAt: FieldValue.serverTimestamp(),
-    });
+    if (needsFollowupUpdate) {
+      try {
+        if (isFirebaseAdminConfigured()) {
+          await bookingRef.update({
+            status: finalStatus,
+            calendarEventId: inviteResult?.calendarEventId || null,
+            calendarEventLink: inviteResult?.calendarEventLink || null,
+            meetLink: inviteResult?.meetLink || null,
+            updatedAt: FieldValue.serverTimestamp(),
+          });
+
+          await slotRef.update({
+            status: finalStatus,
+            updatedAt: FieldValue.serverTimestamp(),
+          });
+        } else {
+          await updateDoc(bookingRef, {
+            status: finalStatus,
+            calendarEventId: inviteResult?.calendarEventId || null,
+            calendarEventLink: inviteResult?.calendarEventLink || null,
+            meetLink: inviteResult?.meetLink || null,
+            updatedAt: serverTimestamp(),
+          });
+
+          await updateDoc(slotRef, {
+            status: finalStatus,
+            updatedAt: serverTimestamp(),
+          });
+        }
+      } catch (updateError) {
+        console.error("Booking saved but follow-up update failed", updateError);
+      }
+    }
 
     return NextResponse.json({
       success: true,
-      bookingId: bookingRef.id,
+      bookingId,
       status: finalStatus,
       meetLink: inviteResult?.meetLink || null,
       calendarEventLink: inviteResult?.calendarEventLink || null,
       message:
         finalStatus === "confirmed"
-          ? "Your strategy call is booked. A Google Calendar invite with a Meet link is on the way."
-          : "Your slot is reserved. We still need to send the calendar invite from the backend setup.",
+          ? "Your strategy call is confirmed. Check your inbox for the calendar invite."
+          : "Your strategy call request is received. We will send your calendar invite shortly.",
     });
   } catch (error) {
     if (error instanceof SlotConflictError) {
       return NextResponse.json({ error: error.message }, { status: 409 });
+    }
+
+    const errorCode = error?.code || error?.cause?.code;
+    const errorMessage = error?.message || "";
+    const isPermissionError =
+      errorCode === 7 ||
+      errorCode === "permission-denied" ||
+      errorMessage.includes("PERMISSION_DENIED") ||
+      errorMessage.includes("Missing or insufficient permissions");
+
+    if (isPermissionError) {
+      return NextResponse.json(
+        {
+          error: "We could not complete your booking right now. Please try again in a moment.",
+        },
+        { status: 500 }
+      );
     }
 
     console.error("Strategy call booking route failed", error);
