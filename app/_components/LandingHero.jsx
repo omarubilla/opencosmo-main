@@ -303,7 +303,7 @@ export default function LandingHero({ onDemoClick, onEnterpriseClick }) {
             Discover the power of no-code ai agents, crafted with elegance and precision.
           </p>
           <Image
-            src="/nvidia_inception_logo.png"
+            src="/nvidia-inception-logo.png"
             alt="NVIDIA Inception Program"
             width={180}
             height={42}
