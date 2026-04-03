@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   PricingTable,
   SignedOut,
@@ -7,6 +6,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import LandingFooter from "../_components/LandingFooter";
 import TopNav from "../_components/TopNav";
 
 export const metadata = {
@@ -34,7 +34,7 @@ export default function CosmoOSPage() {
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <SignUpButton mode="modal">
-            <Button size="lg" className="text-lg">Start Free Trial</Button>
+            <Button size="lg" className="bg-[var(--brand-red-hover)] text-lg text-white hover:bg-[var(--brand-red)]">Start Free Trial</Button>
           </SignUpButton>
           <Button size="lg" variant="outline" className="text-lg">See How It Works</Button>
         </div>
@@ -97,17 +97,13 @@ export default function CosmoOSPage() {
         <SignedOut>
           <div className="mt-8 flex justify-center">
             <SignUpButton mode="modal">
-              <Button size="lg" className="text-lg">Try 7 days free</Button>
+              <Button size="lg" className="bg-[var(--brand-red-hover)] text-lg text-white hover:bg-[var(--brand-red)]">Try 7 days free</Button>
             </SignUpButton>
           </div>
         </SignedOut>
       </section>
 
-      <div className="pb-12 text-center">
-        <Link href="/" className="text-sm font-medium text-[#7b2532] hover:underline">
-          Back to Home
-        </Link>
-      </div>
+      <LandingFooter />
     </main>
   );
 }

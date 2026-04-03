@@ -60,7 +60,7 @@ export default function TopNav() {
 
         <nav className={`hidden md:flex items-center gap-8 text-sm transition-colors duration-200 ${navTextClass}`}>
           <Link href="/" className={`transition ${navHoverClass}`}>Home</Link>
-          <Link href="/cosmoOS" className={`transition ${navHoverClass}`}>CosmoOS</Link>
+          <Link href="/cosmoOS" className={`transition ${navHoverClass}`}>Cosmo OS</Link>
           <Link href="/SMBs" className={`relative transition ${navHoverClass}`}>
             SMBs
             <span className="pointer-events-none absolute -right-6 -top-2 rounded-full bg-[#7a1f2b] px-1.5 py-0.5 text-[9px] font-semibold uppercase leading-none tracking-[0.02em] text-white">
