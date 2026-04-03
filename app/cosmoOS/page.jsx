@@ -15,10 +15,10 @@ export const metadata = {
 
 export default function CosmoOSPage() {
   return (
-    <main className="landing-wrapper">
+    <main className="min-h-screen bg-[#f4efe6] text-[#171717]">
       <TopNav />
 
-      <section className="section-heading pt-32 text-center">
+      <section className="mx-auto w-full max-w-6xl px-4 pb-14 pt-32 text-center sm:px-6 lg:px-8">
         <p>
           <span className="hero-subtitle">The AI that actually does things</span>
         </p>
@@ -28,11 +28,11 @@ export default function CosmoOSPage() {
           Assistant
         </h1>
 
-        <p className="hero-description">
+        <p className="mx-auto mt-6 max-w-3xl text-xl leading-relaxed text-[#2f2f2f] md:text-[2rem]">
           Clears your inbox, sends emails, manages your calendar, and generates leads -all from your favorite chat app.
         </p>
 
-        <div className="hero-buttons">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <SignUpButton mode="modal">
             <Button size="lg" className="text-lg">Start Free Trial</Button>
           </SignUpButton>
@@ -40,9 +40,9 @@ export default function CosmoOSPage() {
         </div>
       </section>
 
-      <section className="section-heading">
+      <section className="mx-auto w-full max-w-6xl px-4 pb-14 sm:px-6 lg:px-8">
         <h2 className="mb-8 text-center text-3xl font-bold text-black md:text-4xl">Powerful Features</h2>
-        <div className="features-grid">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 key: "email-management",
@@ -81,21 +81,21 @@ export default function CosmoOSPage() {
                   "Expandable workflows for custom automations, integrations, and assistant capabilities as your team grows",
               },
           ].map((feature) => (
-            <Card key={feature.key} className="p-6">
-              <CardHeader>
+            <Card key={feature.key} className="border border-[#d8d3cb] bg-[#f8f5ef] p-6 shadow-none">
+              <CardHeader className="p-0">
                 <CardTitle className="text-xl font-bold text-[#1c9baa]">{feature.title}</CardTitle>
-                <CardDescription className="text-base leading-relaxed text-black">{feature.description}</CardDescription>
+                <CardDescription className="mt-2 text-base leading-relaxed text-[#252525]">{feature.description}</CardDescription>
               </CardHeader>
             </Card>
           ))}
         </div>
       </section>
 
-      <section className="section-heading pb-12" id="pricing">
+      <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8" id="pricing">
         <h2 className="mb-6 text-center text-3xl font-bold text-black md:text-4xl">Simple, Transparent Pricing</h2>
         <PricingTable />
         <SignedOut>
-          <div className="hero-buttons" style={{ marginTop: "2rem" }}>
+          <div className="mt-8 flex justify-center">
             <SignUpButton mode="modal">
               <Button size="lg" className="text-lg">Try 7 days free</Button>
             </SignUpButton>
@@ -103,7 +103,7 @@ export default function CosmoOSPage() {
         </SignedOut>
       </section>
 
-      <div className="pb-10 text-center">
+      <div className="pb-12 text-center">
         <Link href="/" className="text-sm font-medium text-[#7b2532] hover:underline">
           Back to Home
         </Link>
